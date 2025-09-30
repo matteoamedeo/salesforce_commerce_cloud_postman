@@ -1,0 +1,379 @@
+/* Postman API Tester - Custom Styles */
+
+/* Override Lightning Design System for better Postman-like experience */
+.slds-scope {
+    background-color: #f3f3f3;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+/* Header styling */
+.slds-global-header {
+    background: linear-gradient(135deg, #0176d3 0%, #014486 100%);
+    border-bottom: 1px solid #dddbda;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slds-global-header__logo {
+    color: white;
+    font-weight: 600;
+}
+
+.slds-global-header__logo .slds-icon {
+    fill: white;
+}
+
+/* Card styling */
+.slds-card {
+    border: 1px solid #dddbda;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.slds-card__header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dddbda;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Request method selector */
+#request-method {
+    min-width: 100px;
+    font-weight: 600;
+}
+
+/* URL input styling */
+#request-url {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+}
+
+/* Headers and body sections */
+.slds-section__content {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+/* Header input pairs */
+#headers-container .slds-grid {
+    align-items: center;
+}
+
+#headers-container .slds-col:first-child input {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#headers-container .slds-col:last-child input {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Request body textarea */
+#request-body {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    background: #f8f9fa;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+}
+
+/* Response area */
+#response-body {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Response headers */
+#response-headers {
+    background: #f8f9fa;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Status badges */
+#response-status {
+    font-weight: 600;
+    min-width: 60px;
+    text-align: center;
+}
+
+#response-status.success {
+    background-color: #4bca81;
+    color: white;
+}
+
+#response-status.error {
+    background-color: #ea001e;
+    color: white;
+}
+
+#response-status.warning {
+    background-color: #fe9339;
+    color: white;
+}
+
+/* Collections and environments list */
+.slds-list--vertical .slds-list__item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.slds-list--vertical .slds-list__item:last-child {
+    border-bottom: none;
+}
+
+.slds-list--vertical .slds-list__item:hover {
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
+
+/* Modal styling */
+.slds-modal__container {
+    max-width: 600px;
+}
+
+/* Environment variables */
+#environment-variables .slds-grid {
+    align-items: center;
+}
+
+#environment-variables .slds-col:first-child input {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#environment-variables .slds-col:last-child input {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #0176d3;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* JSON syntax highlighting */
+.json-key {
+    color: #9cdcfe;
+}
+
+.json-string {
+    color: #ce9178;
+}
+
+.json-number {
+    color: #b5cea8;
+}
+
+.json-boolean {
+    color: #569cd6;
+}
+
+.json-null {
+    color: #808080;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .slds-col.slds-size--1-of-4 {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .slds-col.slds-size--3-of-4 {
+        width: 100%;
+    }
+    
+    .slds-global-header__logo {
+        font-size: 1rem;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Button hover effects */
+.slds-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Form element focus states */
+.slds-input:focus,
+.slds-textarea:focus,
+.slds-select:focus {
+    border-color: #0176d3;
+    box-shadow: 0 0 0 2px rgba(1, 118, 211, 0.2);
+}
+
+/* Section toggle animations */
+.slds-section__content {
+    transition: all 0.3s ease;
+}
+
+.slds-section__title-action-icon {
+    transition: transform 0.3s ease;
+}
+
+.slds-section.slds-is-open .slds-section__title-action-icon {
+    transform: rotate(90deg);
+}
+
+/* Collection and environment items */
+.collection-item,
+.environment-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.collection-item:hover,
+.environment-item:hover {
+    background-color: #f3f3f3;
+}
+
+.collection-item.active,
+.environment-item.active {
+    background-color: #0176d3;
+    color: white;
+}
+
+.collection-item .slds-icon,
+.environment-item .slds-icon {
+    margin-right: 0.5rem;
+}
+
+/* Action buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.action-buttons .slds-button {
+    padding: 0.25rem 0.5rem;
+    min-height: auto;
+}
+
+/* Error states */
+.error-message {
+    color: #ea001e;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.success-message {
+    color: #4bca81;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Code blocks */
+code {
+    background-color: #f3f3f3;
+    padding: 0.125rem 0.25rem;
+    border-radius: 2px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+}
+
+/* Tooltip styles */
+.slds-popover {
+    z-index: 9999;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    .slds-scope {
+        background-color: #1a1a1a;
+        color: #e5e5e5;
+    }
+    
+    .slds-card {
+        background: #2a2a2a;
+        border-color: #404040;
+    }
+    
+    .slds-card__header {
+        background: #333333;
+        border-color: #404040;
+    }
+    
+    .slds-section__content {
+        background: #333333;
+    }
+    
+    #request-body {
+        background: #2a2a2a;
+        color: #e5e5e5;
+        border-color: #404040;
+    }
+    
+    #response-headers {
+        background: #2a2a2a;
+        color: #e5e5e5;
+        border-color: #404040;
+    }
+}
