@@ -17,6 +17,19 @@
 		<exec pipeline="Postman" node="Start" />
 		<sub-pipelines>
 			<pipeline name="Postman-Start" />
+			<pipeline name="Postman-SaveWorkspace" />
+			<pipeline name="Postman-SelectWorkspace" />
+			<pipeline name="Postman-ListWorkspaces" />
+			<pipeline name="Postman-DeleteWorkspace" />
+			<pipeline name="Postman-ExecuteRequest" />
+			<pipeline name="Postman-SaveCollection" />
+			<pipeline name="Postman-LoadCollection" />
+			<pipeline name="Postman-ListCollections" />
+			<pipeline name="Postman-DeleteCollection" />
+			<pipeline name="Postman-SaveEnvironment" />
+			<pipeline name="Postman-LoadEnvironment" />
+			<pipeline name="Postman-ListEnvironments" />
+			<pipeline name="Postman-DeleteEnvironment" />
 		</sub-pipelines>
 		<icon>images/icon-transactions.png</icon>
 	</menuaction>

@@ -4,11 +4,12 @@ var server = require('server');
 var URLUtils = require('dw/web/URLUtils');
 var Resource = require('dw/web/Resource');
 var PostmanService = require('*/cartridge/scripts/services/PostmanService');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 
 /**
  * Main Postman interface page
  */
-server.get('Show', function (req, res, next) {
+server.get('Start', function (req, res, next) {
     var workspaceId = req.querystring.workspaceId || null;
     res.render('postman/main', {
         title: Resource.msg('postman.title', 'postman', 'Postman API Tester'),
@@ -32,7 +33,8 @@ server.get('ListWorkspaces', function (req, res, next) {
  * Save workspace
  */
 server.post('SaveWorkspace', function (req, res, next) {
-    var workspaceData = JSON.parse(req.body.workspaceData);
+    var reqBody = JSON.parse(req.body);
+    var workspaceData = JSON.parse(reqBody.workspaceData);
     var result = PostmanService.saveWorkspace(workspaceData);
     res.json(result);
     next();
@@ -49,12 +51,24 @@ server.post('DeleteWorkspace', function (req, res, next) {
 });
 
 /**
+ * Select workspace
+ */
+server.get('SelectWorkspace', function (req, res, next) {
+    var workspaceId = req.querystring.workspaceId;
+    var result = PostmanService.selectWorkspace(workspaceId);
+    var check = CustomObjectMgr.getCustomObject('PostmanWorkspace', workspaceId);
+    
+    res.json(result);
+    next();
+});
+
+/**
  * Execute API request
  */
 server.post('ExecuteRequest', function (req, res, next) {
     var requestData = JSON.parse(req.body.requestData);
     var result = PostmanService.executeRequest(requestData);
-    
+
     res.json({
         success: result.success,
         data: result.data,
@@ -70,9 +84,10 @@ server.post('ExecuteRequest', function (req, res, next) {
  * Save collection
  */
 server.post('SaveCollection', function (req, res, next) {
-    var collectionData = JSON.parse(req.body.collectionData);
+    var reqBody = JSON.parse(req.body);
+    var collectionData = JSON.parse(reqBody.collectionData);
     var result = PostmanService.saveCollection(collectionData);
-    
+
     res.json({
         success: result.success,
         message: result.message,
@@ -87,7 +102,7 @@ server.post('SaveCollection', function (req, res, next) {
 server.get('LoadCollection', function (req, res, next) {
     var collectionId = req.querystring.collectionId;
     var collection = PostmanService.loadCollection(collectionId);
-    
+
     res.json({
         success: collection ? true : false,
         data: collection
@@ -111,7 +126,7 @@ server.get('ListCollections', function (req, res, next) {
 server.post('DeleteCollection', function (req, res, next) {
     var collectionId = req.body.collectionId;
     var result = PostmanService.deleteCollection(collectionId);
-    
+
     res.json({
         success: result.success,
         message: result.message
@@ -123,9 +138,10 @@ server.post('DeleteCollection', function (req, res, next) {
  * Save environment
  */
 server.post('SaveEnvironment', function (req, res, next) {
-    var environmentData = JSON.parse(req.body.environmentData);
+    var reqBody = JSON.parse(req.body);
+    var environmentData = JSON.parse(reqBody.environmentData);
     var result = PostmanService.saveEnvironment(environmentData);
-    
+
     res.json({
         success: result.success,
         message: result.message,
@@ -140,7 +156,7 @@ server.post('SaveEnvironment', function (req, res, next) {
 server.get('LoadEnvironment', function (req, res, next) {
     var environmentId = req.querystring.environmentId;
     var environment = PostmanService.loadEnvironment(environmentId);
-    
+
     res.json({
         success: environment ? true : false,
         data: environment
@@ -164,7 +180,7 @@ server.get('ListEnvironments', function (req, res, next) {
 server.post('DeleteEnvironment', function (req, res, next) {
     var environmentId = req.body.environmentId;
     var result = PostmanService.deleteEnvironment(environmentId);
-    
+
     res.json({
         success: result.success,
         message: result.message

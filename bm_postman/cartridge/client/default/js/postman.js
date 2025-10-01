@@ -11,7 +11,9 @@ class PostmanApp {
         this.environments = [];
         this.workspaces = [];
         this.isLoading = false;
-        
+        this.urls = document.querySelector('.js-postman-dataset');
+        this.svgs = document.querySelector('.js-postman-svg-dataset');
+
         this.init();
     }
     
@@ -260,10 +262,10 @@ class PostmanApp {
         
         if (loading) {
             sendBtn.disabled = true;
-            sendBtn.innerHTML = '<svg class="slds-button__icon slds-button__icon--left" aria-hidden="true"><use xlink:href="/icons/utility-sprite/svg/symbols.svg#spinner"></use></svg>Sending...';
+            sendBtn.innerHTML = `<svg class="slds-button__icon slds-button__icon--left" aria-hidden="true"><use xlink:href="${this.svgs.dataset.spinner}"></use></svg>Sending...`;
         } else {
             sendBtn.disabled = false;
-            sendBtn.innerHTML = '<svg class="slds-button__icon slds-button__icon--left" aria-hidden="true"><use xlink:href="/icons/utility-sprite/svg/symbols.svg#send"></use></svg>Send';
+            sendBtn.innerHTML = `<svg class="slds-button__icon slds-button__icon--left" aria-hidden="true"><use xlink:href="${this.svgs.dataset.send}"></use></svg>Send`;
         }
     }
     
@@ -303,7 +305,9 @@ class PostmanApp {
     
     async loadWorkspaces() {
         try {
-            const response = await fetch('/on/demandware.store/Sites-Site/default/Postman-ListWorkspaces');
+            let url = this.urls.dataset.listWorkspaces;
+            
+            const response = await fetch(url);
             const result = await response.json();
             
             if (result.success) {
@@ -318,9 +322,8 @@ class PostmanApp {
     async loadCollections() {
         try {
             const workspaceId = this.currentWorkspace || '';
-            const url = workspaceId ? 
-                `/on/demandware.store/Sites-Site/default/Postman-ListCollections?workspaceId=${workspaceId}` :
-                '/on/demandware.store/Sites-Site/default/Postman-ListCollections';
+            var listCollectionsUrl = this.urls.dataset.listCollections;
+            const url = workspaceId ? `${listCollectionsUrl}?workspaceId=${workspaceId}` : listCollectionsUrl;
             
             const response = await fetch(url);
             const result = await response.json();
@@ -344,24 +347,24 @@ class PostmanApp {
             container.innerHTML = '<div class="slds-text-body--small slds-text-color--weak">No collections yet</div>';
             return;
         }
-        
+
         container.innerHTML = this.collections.map(collection => `
             <div class="collection-item" data-collection-id="${collection.id}">
                 <div>
                     <svg class="slds-icon slds-icon--x-small" aria-hidden="true">
-                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#collection"></use>
+                        <use xlink:href="${this.svgs.dataset.collection}"></use>
                     </svg>
                     <span>${this.escapeHtml(collection.name)}</span>
                 </div>
                 <div class="action-buttons">
                     <button class="slds-button slds-button--icon" title="Load Collection" onclick="postmanApp.loadCollection('${collection.id}')">
                         <svg class="slds-button__icon" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#download"></use>
+                            <use xlink:href="${this.svgs.dataset.add}"></use>
                         </svg>
                     </button>
                     <button class="slds-button slds-button--icon" title="Delete Collection" onclick="postmanApp.deleteCollection('${collection.id}')">
                         <svg class="slds-button__icon" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#delete"></use>
+                            <use xlink:href="${this.svgs.dataset.delete}"></use>
                         </svg>
                     </button>
                 </div>
@@ -373,16 +376,21 @@ class PostmanApp {
         const container = document.getElementById('workspaces-list');
         const countElement = document.getElementById('workspaces-count');
         const selectElement = document.getElementById('workspace-select');
+        let lastUsed = false;
         
         countElement.textContent = this.workspaces.length;
         
         // Update workspace selector
-        selectElement.innerHTML = '<option value="">All Workspaces</option>';
         this.workspaces.forEach(workspace => {
             const option = document.createElement('option');
             option.value = workspace.id;
             option.textContent = workspace.name;
             selectElement.appendChild(option);
+
+            if(workspace.lastUsed == true){
+                lastUsed = workspace.id;
+            }
+
         });
         
         if (this.workspaces.length === 0) {
@@ -390,37 +398,33 @@ class PostmanApp {
             return;
         }
         
-        container.innerHTML = this.workspaces.map(workspace => `
-            <div class="workspace-item" data-workspace-id="${workspace.id}">
-                <div>
-                    <svg class="slds-icon slds-icon--x-small" aria-hidden="true">
-                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#workspace"></use>
-                    </svg>
-                    <span>${this.escapeHtml(workspace.name)}</span>
-                </div>
-                <div class="action-buttons">
-                    <button class="slds-button slds-button--icon" title="Delete Workspace" onclick="postmanApp.deleteWorkspace('${workspace.id}')">
-                        <svg class="slds-button__icon" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#delete"></use>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        `).join('');
+        if(lastUsed){
+            this.selectWorkspace(lastUsed);
+            document.getElementById('workspace-select').value = lastUsed;
+        } else{
+            selectElement.innerHTML = '<option value="">All Workspaces</option>';
+        }
+
     }
     
-    selectWorkspace(workspaceId) {
+    async selectWorkspace(workspaceId) {
         this.currentWorkspace = workspaceId || null;
-        this.loadCollections();
-        this.loadEnvironments();
+
+        let url = this.urls.dataset.selectWorkspace + '?workspaceId=' + this.currentWorkspace;
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (result.success) {
+            this.loadCollections();
+            this.loadEnvironments();
+        }
     }
     
     async loadEnvironments() {
         try {
             const workspaceId = this.currentWorkspace || '';
-            const url = workspaceId ? 
-                `/on/demandware.store/Sites-Site/default/Postman-ListEnvironments?workspaceId=${workspaceId}` :
-                '/on/demandware.store/Sites-Site/default/Postman-ListEnvironments';
+            let listEnvUrl = this.urls.dataset.listEnvironments;
+            const url = workspaceId ? `${listEnvUrl}?workspaceId=${workspaceId}` : listEnvUrl;
             
             const response = await fetch(url);
             const result = await response.json();
@@ -449,19 +453,19 @@ class PostmanApp {
             <div class="environment-item" data-environment-id="${environment.id}">
                 <div>
                     <svg class="slds-icon slds-icon--x-small" aria-hidden="true">
-                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#environment"></use>
+                        <use xlink:href="${this.svgs.dataset.environment}"></use>
                     </svg>
                     <span>${this.escapeHtml(environment.name)}</span>
                 </div>
                 <div class="action-buttons">
                     <button class="slds-button slds-button--icon" title="Load Environment" onclick="postmanApp.loadEnvironment('${environment.id}')">
                         <svg class="slds-button__icon" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#download"></use>
+                            <use xlink:href="${this.svgs.dataset.download}"></use>
                         </svg>
                     </button>
                     <button class="slds-button slds-button--icon" title="Delete Environment" onclick="postmanApp.deleteEnvironment('${environment.id}')">
                         <svg class="slds-button__icon" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#delete"></use>
+                            <use xlink:href="${this.svgs.dataset.delete}"></use>
                         </svg>
                     </button>
                 </div>
@@ -594,8 +598,10 @@ class PostmanApp {
                 workspaceId: this.currentWorkspace,
                 requests: this.editingCollection ? this.editingCollection.requests : []
             };
+
+            let url = this.urls.dataset.saveCollection;
             
-            const response = await fetch('/on/demandware.store/Sites-Site/default/Postman-SaveCollection', {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -645,8 +651,10 @@ class PostmanApp {
                 workspaceId: this.currentWorkspace,
                 variables: variables
             };
+
+            var url = this.urls.dataset.saveEnvironment;
             
-            const response = await fetch('/on/demandware.store/Sites-Site/default/Postman-SaveEnvironment', {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -770,14 +778,20 @@ class PostmanApp {
                 name: name,
                 description: description
             };
+
+            let url = this.urls.dataset.saveWorkspace;
             
-            const response = await fetch('/on/demandware.store/Sites-Site/default/Postman-SaveWorkspace', {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ workspaceData: JSON.stringify(workspaceData) })
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             
             const result = await response.json();
             
@@ -828,11 +842,6 @@ class PostmanApp {
         errorDiv.className = 'slds-notify slds-notify--alert slds-theme--error slds-m-bottom--medium';
         errorDiv.innerHTML = `
             <span class="slds-assistive-text">Error</span>
-            <span class="slds-icon_container slds-icon-utility-error slds-m-right--x-small">
-                <svg class="slds-icon slds-icon--x-small" aria-hidden="true">
-                    <use xlink:href="/icons/utility-sprite/svg/symbols.svg#error"></use>
-                </svg>
-            </span>
             <h2>${this.escapeHtml(message)}</h2>
         `;
         
@@ -856,7 +865,7 @@ class PostmanApp {
             <span class="slds-assistive-text">Success</span>
             <span class="slds-icon_container slds-icon-utility-success slds-m-right--x-small">
                 <svg class="slds-icon slds-icon--x-small" aria-hidden="true">
-                    <use xlink:href="/icons/utility-sprite/svg/symbols.svg#success"></use>
+                    <use xlink:href="${this.svgs.dataset.success}"></use>
                 </svg>
             </span>
             <h2>${this.escapeHtml(message)}</h2>

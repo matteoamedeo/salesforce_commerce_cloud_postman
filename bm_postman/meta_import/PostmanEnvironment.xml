@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="PostmanEnvironment">
+        <display-name xml:lang="x-default">Postman Environment</display-name>
+        <description xml:lang="x-default">Ambiente per gestire variabili e configurazioni per le richieste API</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>organization</storage-scope>
+        
+        <key-definition attribute-id="ID">
+            <type>string</type>
+            <min-length>1</min-length>
+        </key-definition>
+        
+        <attribute-definitions>
+            <!-- Nome dell'ambiente -->
+            <attribute-definition attribute-id="Name">
+                <display-name xml:lang="x-default">Nome</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>1</min-length>
+            </attribute-definition>
+            
+            <!-- Descrizione dell'ambiente -->
+            <attribute-definition attribute-id="Description">
+                <display-name xml:lang="x-default">Descrizione</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- ID del workspace di appartenenza -->
+            <attribute-definition attribute-id="WorkspaceID">
+                <display-name xml:lang="x-default">ID Workspace</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- Variabili dell'ambiente in formato JSON -->
+            <attribute-definition attribute-id="Variables">
+                <display-name xml:lang="x-default">Variabili</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- Tipo di ambiente -->
+            <attribute-definition attribute-id="Type">
+                <display-name xml:lang="x-default">Tipo</display-name>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Sviluppo</display>
+                        <value>development</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Staging</display>
+                        <value>staging</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Produzione</display>
+                        <value>production</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Testing</display>
+                        <value>testing</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            
+            <!-- Data di creazione -->
+            <attribute-definition attribute-id="CreatedDate">
+                <display-name xml:lang="x-default">Data Creazione</display-name>
+                <type>datetime</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- Data ultima modifica -->
+            <attribute-definition attribute-id="LastModifiedDate">
+                <display-name xml:lang="x-default">Ultima Modifica</display-name>
+                <type>datetime</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- Creatore dell'ambiente -->
+            <attribute-definition attribute-id="CreatedBy">
+                <display-name xml:lang="x-default">Creato da</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- Ultimo modificatore -->
+            <attribute-definition attribute-id="LastModifiedBy">
+                <display-name xml:lang="x-default">Ultima modifica da</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            
+            <!-- Stato dell'ambiente -->
+            <attribute-definition attribute-id="Status">
+                <display-name xml:lang="x-default">Stato</display-name>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Attivo</display>
+                        <value>active</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Inattivo</display>
+                        <value>inactive</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Archiviato</display>
+                        <value>archived</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            
+            <!-- Flag per indicare se l'ambiente è predefinito -->
+            <attribute-definition attribute-id="IsDefault">
+                <display-name xml:lang="x-default">Predefinito</display-name>
+                <type>boolean</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            
+            <!-- Numero di variabili nell'ambiente -->
+            <attribute-definition attribute-id="VariableCount">
+                <display-name xml:lang="x-default">Numero Variabili</display-name>
+                <type>int</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>0</default-value>
+            </attribute-definition>
+            
+            <!-- Configurazioni aggiuntive -->
+            <attribute-definition attribute-id="Settings">
+                <display-name xml:lang="x-default">Impostazioni</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        
+        <group-definitions>
+            <attribute-group group-id="main">
+                <display-name xml:lang="x-default">Informazioni Principali</display-name>
+                <attribute attribute-id="ID"/>
+                <attribute attribute-id="Name"/>
+                <attribute attribute-id="Description"/>
+                <attribute attribute-id="WorkspaceID"/>
+                <attribute attribute-id="Type"/>
+                <attribute attribute-id="Status"/>
+                <attribute attribute-id="IsDefault"/>
+            </attribute-group>
+            <attribute-group group-id="variables">
+                <display-name xml:lang="x-default">Variabili</display-name>
+                <attribute attribute-id="Variables"/>
+                <attribute attribute-id="VariableCount"/>
+            </attribute-group>
+            <attribute-group group-id="metadata">
+                <display-name xml:lang="x-default">Metadati</display-name>
+                <attribute attribute-id="CreatedDate"/>
+                <attribute attribute-id="LastModifiedDate"/>
+                <attribute attribute-id="CreatedBy"/>
+                <attribute attribute-id="LastModifiedBy"/>
+                <attribute attribute-id="Settings"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+</metadata>

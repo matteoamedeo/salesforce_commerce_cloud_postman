@@ -1,26 +1,45 @@
 <isdecorate template="application/MenuFrame">
     <link rel="stylesheet" href="${URLUtils.staticURL('css/bootstrap.min.css')}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.15.3/styles/salesforce-lightning-design-system.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.15.3/styles/salesforce-lightning-design-system.min.css" />
     <link rel="stylesheet" href="${URLUtils.staticURL('css/postman.css')}" />
-    
+
+    <div class="js-postman-dataset d-none" 
+        data-save-workspace="${URLUtils.url('Postman-SaveWorkspace')}"
+        data-select-workspace="${URLUtils.url('Postman-SelectWorkspace')}"
+        data-list-workspaces="${URLUtils.url('Postman-ListWorkspaces')}"
+        data-list-collections="${URLUtils.url('Postman-ListCollections')}"
+        data-list-environments="${URLUtils.url('Postman-ListEnvironments')}"
+        data-save-collection="${URLUtils.url('Postman-SaveCollection')}"
+        data-save-environment="${URLUtils.url('Postman-SaveEnvironment')}"
+    ></div>
+    <div class="js-postman-svg-dataset d-none" 
+        data-add="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#add"
+        data-delete="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#delete"
+        data-workspace="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#workspace"
+        data-environment="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#environment"
+        data-download="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#download"
+        data-success="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#success"
+        data-collection="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#collection"
+        data-spinner="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#spinner"
+        data-send="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#send"
+    ></div>
+
     <div class="postman-container">
         <!-- Header -->
         <div class="slds-global-header slds-grid slds-grid--align-spread slds-p-horizontal--large">
             <div class="slds-global-header__item">
                 <div class="slds-global-header__logo">
-                    <span class="slds-icon_container slds-icon-utility-api slds-m-right--small">
-                        <svg class="slds-icon slds-icon--small" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#api"></use>
-                        </svg>
-                    </span>
-                    <span class="slds-text-heading--medium">Postman API Tester</span>
+                    <span class="slds-text-heading--medium">API Tester</span>
                 </div>
             </div>
             <div class="slds-global-header__item">
                 <div class="slds-global-header__item slds-global-header__item--search">
                     <button class="slds-button slds-button--icon slds-button--icon-container-more" title="Settings">
-                        <svg class="slds-icon slds-icon--x-small" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#settings"></use>
+                        <svg class="slds-icon--x-small" aria-hidden="true">
+                            <use
+                                xlink:href="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#settings">
+                            </use>
                         </svg>
                     </button>
                 </div>
@@ -29,7 +48,7 @@
 
         <!-- Main Content -->
         <div class="slds-grid slds-wrap slds-gutters slds-p-around--large">
-            
+
             <!-- Left Sidebar - Workspaces, Collections & Environments -->
             <div class="slds-col slds-size--1-of-4">
                 <div class="slds-card">
@@ -37,8 +56,10 @@
                         <header class="slds-media slds-media--center slds-has-flexi-truncate">
                             <div class="slds-media__figure">
                                 <span class="slds-icon_container slds-icon-utility-collection">
-                                    <svg class="slds-icon slds-icon--small" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#collection"></use>
+                                    <svg class="slds-icon--small" aria-hidden="true">
+                                        <use
+                                            xlink:href="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#collection">
+                                        </use>
                                     </svg>
                                 </span>
                             </div>
@@ -49,14 +70,22 @@
                             </div>
                         </header>
                     </div>
-                    
+
                     <div class="slds-card__body slds-card__body--inner">
                         <!-- Workspaces Section -->
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <iscomment>
+                                            <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                            </use>
+                                        </iscomment>
+                                        <use
+                                            xlink:href="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#chevronright">
+                                        </use>
+
                                     </svg>
                                     <span class="slds-truncate" title="Workspaces">Workspaces</span>
                                     <span class="slds-badge slds-badge--lightest" id="workspaces-count">0</span>
@@ -64,7 +93,8 @@
                             </h3>
                             <div class="slds-section__content">
                                 <div class="slds-form-element slds-m-bottom--small">
-                                    <label class="slds-form-element__label" for="workspace-select">Current Workspace</label>
+                                    <label class="slds-form-element__label" for="workspace-select">Current
+                                        Workspace</label>
                                     <div class="slds-form-element__control">
                                         <div class="slds-select_container">
                                             <select id="workspace-select" class="slds-select">
@@ -74,12 +104,19 @@
                                     </div>
                                 </div>
 
-                                <div class="slds-list--vertical slds-has-dividers--top-space" id="workspaces-list">
+                                <iscomment> <div class="slds-list--vertical slds-has-dividers--top-space" id="workspaces-list">
                                     <div class="slds-text-body--small slds-text-color--weak">No workspaces yet</div>
-                                </div>
-                                <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small" id="new-workspace-btn">
+                                </div> </iscomment>
+                                <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small"
+                                    id="new-workspace-btn">
                                     <svg class="slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                        <iscomment>
+                                            <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                        </iscomment>
+                                        <use
+                                            xlink:href="${URLUtils.staticURL('assets/icons/utility-sprite/svg/symbols.svg')}#add">
+                                        </use>
+
                                     </svg>
                                     New Workspace
                                 </button>
@@ -89,8 +126,10 @@
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                        </use>
                                     </svg>
                                     <span class="slds-truncate" title="Collections">Collections</span>
                                     <span class="slds-badge slds-badge--lightest" id="collections-count">0</span>
@@ -100,21 +139,24 @@
                                 <div class="slds-list--vertical slds-has-dividers--top-space" id="collections-list">
                                     <div class="slds-text-body--small slds-text-color--weak">No collections yet</div>
                                 </div>
-                                <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small" id="new-collection-btn">
+                                <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small"
+                                    id="new-collection-btn">
                                     <svg class="slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"></use>
                                     </svg>
                                     New Collection
                                 </button>
                             </div>
                         </div>
-                        
+
                         <!-- Environments Section -->
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                        </use>
                                     </svg>
                                     <span class="slds-truncate" title="Environments">Environments</span>
                                     <span class="slds-badge slds-badge--lightest" id="environments-count">0</span>
@@ -124,9 +166,10 @@
                                 <div class="slds-list--vertical slds-has-dividers--top-space" id="environments-list">
                                     <div class="slds-text-body--small slds-text-color--weak">No environments yet</div>
                                 </div>
-                                <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small" id="new-environment-btn">
+                                <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small"
+                                    id="new-environment-btn">
                                     <svg class="slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"></use>
                                     </svg>
                                     New Environment
                                 </button>
@@ -135,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Main Request Area -->
             <div class="slds-col slds-size--3-of-4">
                 <div class="slds-card">
@@ -143,8 +186,8 @@
                         <header class="slds-media slds-media--center slds-has-flexi-truncate">
                             <div class="slds-media__figure">
                                 <span class="slds-icon_container slds-icon-utility-api">
-                                    <svg class="slds-icon slds-icon--small" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#api"></use>
+                                    <svg class="slds-icon--small" aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#api"></use>
                                     </svg>
                                 </span>
                             </div>
@@ -157,13 +200,13 @@
                         <div class="slds-no-flex">
                             <button class="slds-button slds-button--brand" id="send-request-btn">
                                 <svg class="slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                    <use xlink:href="/icons/utility-sprite/svg/symbols.svg#send"></use>
+                                    <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#send"></use>
                                 </svg>
                                 Send
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="slds-card__body slds-card__body--inner">
                         <!-- Request Configuration -->
                         <div class="slds-form-element slds-m-bottom--medium">
@@ -182,20 +225,23 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-form-element slds-m-bottom--medium">
                             <label class="slds-form-element__label" for="request-url">URL</label>
                             <div class="slds-form-element__control">
-                                <input type="text" class="slds-input" id="request-url" placeholder="https://api.example.com/endpoint" />
+                                <input type="text" class="slds-input" id="request-url"
+                                    placeholder="https://api.example.com/endpoint" />
                             </div>
                         </div>
-                        
+
                         <!-- Headers Section -->
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                        </use>
                                     </svg>
                                     <span class="slds-truncate" title="Headers">Headers</span>
                                 </button>
@@ -213,19 +259,21 @@
                                 </div>
                                 <button class="slds-button slds-button--neutral slds-button--small" id="add-header-btn">
                                     <svg class="slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"></use>
                                     </svg>
                                     Add Header
                                 </button>
                             </div>
                         </div>
-                        
+
                         <!-- Body Section -->
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                        </use>
                                     </svg>
                                     <span class="slds-truncate" title="Body">Body</span>
                                 </button>
@@ -233,22 +281,23 @@
                             <div class="slds-section__content">
                                 <div class="slds-form-element">
                                     <div class="slds-form-element__control">
-                                        <textarea class="slds-textarea" id="request-body" rows="10" placeholder="Request body (JSON, XML, etc.)"></textarea>
+                                        <textarea class="slds-textarea" id="request-body" rows="10"
+                                            placeholder="Request body (JSON, XML, etc.)"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Response Area -->
                 <div class="slds-card slds-m-top--medium">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media--center slds-has-flexi-truncate">
                             <div class="slds-media__figure">
                                 <span class="slds-icon_container slds-icon-utility-response">
-                                    <svg class="slds-icon slds-icon--small" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#response"></use>
+                                    <svg class="slds-icon--small" aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#response"></use>
                                     </svg>
                                 </span>
                             </div>
@@ -263,13 +312,15 @@
                             <span class="slds-badge slds-badge--lightest" id="response-time">0ms</span>
                         </div>
                     </div>
-                    
+
                     <div class="slds-card__body slds-card__body--inner">
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                        </use>
                                     </svg>
                                     <span class="slds-truncate" title="Response Headers">Response Headers</span>
                                 </button>
@@ -280,18 +331,21 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="slds-section slds-is-open">
                             <h3 class="slds-section__title slds-theme--shade">
                                 <button class="slds-button slds-section__title-action" aria-expanded="true">
-                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left" aria-hidden="true">
-                                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                    <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon--left"
+                                        aria-hidden="true">
+                                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#chevronright">
+                                        </use>
                                     </svg>
                                     <span class="slds-truncate" title="Response Body">Response Body</span>
                                 </button>
                             </h3>
                             <div class="slds-section__content">
-                                <pre id="response-body" class="slds-text-body--small"><code>No response yet. Send a request to see the response here.</code></pre>
+                                <pre id="response-body"
+                                    class="slds-text-body--small"><code>No response yet. Send a request to see the response here.</code></pre>
                             </div>
                         </div>
                     </div>
@@ -307,7 +361,7 @@
             <header class="slds-modal__header">
                 <button class="slds-button slds-button--icon-inverse slds-modal__close" id="close-collection-modal">
                     <svg class="slds-button__icon slds-button__icon--large" aria-hidden="true">
-                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#close"></use>
                     </svg>
                 </button>
                 <h2 class="slds-text-heading--medium slds-hyphenate" id="collection-modal-title">New Collection</h2>
@@ -340,7 +394,7 @@
             <header class="slds-modal__header">
                 <button class="slds-button slds-button--icon-inverse slds-modal__close" id="close-workspace-modal">
                     <svg class="slds-button__icon slds-button__icon--large" aria-hidden="true">
-                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#close"></use>
                     </svg>
                 </button>
                 <h2 class="slds-text-heading--medium slds-hyphenate" id="workspace-modal-title">New Workspace</h2>
@@ -373,7 +427,7 @@
             <header class="slds-modal__header">
                 <button class="slds-button slds-button--icon-inverse slds-modal__close" id="close-environment-modal">
                     <svg class="slds-button__icon slds-button__icon--large" aria-hidden="true">
-                        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#close"></use>
                     </svg>
                 </button>
                 <h2 class="slds-text-heading--medium slds-hyphenate" id="environment-modal-title">New Environment</h2>
@@ -403,9 +457,10 @@
                             </div>
                         </div>
                     </div>
-                    <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small" id="add-environment-variable">
+                    <button class="slds-button slds-button--neutral slds-button--small slds-m-top--small"
+                        id="add-environment-variable">
                         <svg class="slds-button__icon slds-button__icon--left" aria-hidden="true">
-                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#add"></use>
+                            <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"></use>
                         </svg>
                         Add Variable
                     </button>
@@ -420,6 +475,7 @@
     <div class="slds-backdrop slds-backdrop--open" id="environment-backdrop" style="display: none;"></div>
 
     <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.15.3/js/lightning-design-system.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.15.3/js/lightning-design-system.min.js"></script>
     <script src="${URLUtils.staticURL('js/postman.js')}"></script>
 </isdecorate>
